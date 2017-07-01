@@ -1,0 +1,16 @@
+<BOUCLE_reservation_formulaire_configuration(RESERVATION_FORMULAIRE_CONFIGURATIONS){id_reservation_formulaire_configuration=#ENV{id}}>
+<div class="infos">
+[(#SET{texte_objet,<:reservation_formulaire_configuration:titre_reservation_formulaire_configuration:>})]
+<div class="numero"><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_RESERVATION_FORMULAIRE_CONFIGURATION</p></div>
+
+	<div class='nb_elements'><!--nb_elements--></div>
+
+	[(#AUTORISER{supprimer, reservation_formulaire_configuration, #ID_RESERVATION_FORMULAIRE_CONFIGURATION}|oui)
+		[(#BOUTON_ACTION{
+			[(#CHEMIN_IMAGE{reservation_formulaire_configuration-del-24.png}|balise_img{<:reservation_formulaire_configuration:supprimer_reservation_formulaire_configuration:>}|concat{' ',#VAL{<:reservation_formulaire_configuration:supprimer_reservation_formulaire_configuration:>}|wrap{<b>}}|trim)],
+			#URL_ACTION_AUTEUR{supprimer_reservation_formulaire_configuration, #ID_RESERVATION_FORMULAIRE_CONFIGURATION, #URL_ECRIRE{reservation_formulaire_configurations}},
+			icone s24 horizontale danger reservation_formulaire_configuration-del-24, <:reservation_formulaire_configuration:confirmer_supprimer_reservation_formulaire_configuration:>})]
+	]
+
+</div>
+</BOUCLE_reservation_formulaire_configuration>

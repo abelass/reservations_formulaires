@@ -1,0 +1,20 @@
+<BOUCLE_test_multiple(CONDITION){si #ENV{multiple}|=={on}|oui}>
+	[(#SET{valeur,[(#ENV*{valeur}|is_array|?{[(#ENV*{valeur})],[(#ENV*{valeur}|explode{','})]})]})]
+	<B_reservation_formulaires_selectionnes>
+	<ul>
+	<BOUCLE_reservation_formulaires_selectionnes(RESERVATION_FORMULAIRES){id_reservation_formulaire IN #GET*{valeur}}
+		{par num titre, titre}{statut?}{tout}>
+		<li class="choix">#TITRE (#ID_RESERVATION_FORMULAIRE)</li>
+	</BOUCLE_reservation_formulaires_selectionnes>
+	</ul>
+	</B_reservation_formulaires_selectionnes>
+   	[(#ENV*{sans_reponse}|propre)]
+	<//B_reservation_formulaires_selectionnes>
+</BOUCLE_test_multiple>
+	<BOUCLE_reservation_formulaire_selectionne(RESERVATION_FORMULAIRES){id_reservation_formulaire=#ENV{valeur}}
+		{par num titre, titre}{statut?}{tout}>
+	  	<p>#TITRE (#ID_RESERVATION_FORMULAIRE)</p>
+	</BOUCLE_reservation_formulaire_selectionne>
+   	[(#ENV*{sans_reponse}|propre)]
+	<//B_reservation_formulaire_selectionne>
+<//B_test_multiple>

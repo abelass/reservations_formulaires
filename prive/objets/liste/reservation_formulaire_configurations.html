@@ -1,0 +1,37 @@
+[(#SET{defaut_tri,#ARRAY{
+	titre,1,
+	date,-1,
+	id_reservation_formulaire_configuration,1,
+	points,-1
+}})]<B_liste_reservation_formulaire_configurations>
+#ANCRE_PAGINATION
+<div class="liste-objets reservation_formulaire_configurations">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{reservation_formulaire_configuration:info_1_reservation_formulaire_configuration,reservation_formulaire_configuration:info_nb_reservation_formulaire_configurations}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="picto" scope="col"></th>
+			<th class="titre" scope="col">[(#TRI{titre,<:reservation_formulaire_configuration:champ_titre_label:>,ajax})]</th>
+			<th class="date" scope="col">[(#TRI{date,<:date:>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{id_reservation_formulaire_configuration,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_reservation_formulaire_configurations(RESERVATION_FORMULAIRE_CONFIGURATIONS){id_mot?}{id_auteur?}{where?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class="picto">[(#CHEMIN_IMAGE{reservation_formulaire_configuration-16.png}|balise_img)]</td>
+			<td class="titre principale">[(#LOGO_RESERVATION_FORMULAIRE_CONFIGURATION|image_reduire{20,26})]<a href="[(#ID_RESERVATION_FORMULAIRE_CONFIGURATION|generer_url_entite{reservation_formulaire_configuration})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESERVATION_FORMULAIRE_CONFIGURATION">[(#RANG). ]#TITRE</a></td>
+			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td> 
+			<td class="id">[(#AUTORISER{modifier,reservation_formulaire_configuration,#ID_RESERVATION_FORMULAIRE_CONFIGURATION}|?{
+				<a href="[(#URL_ECRIRE{reservation_formulaire_configuration_edit,id_reservation_formulaire_configuration=#ID_RESERVATION_FORMULAIRE_CONFIGURATION})]">#ID_RESERVATION_FORMULAIRE_CONFIGURATION</a>,
+				#ID_RESERVATION_FORMULAIRE_CONFIGURATION
+			})]</td>
+		</tr>
+	</BOUCLE_liste_reservation_formulaire_configurations>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_reservation_formulaire_configurations>[
+<div class="liste-objets reservation_formulaire_configurations caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_reservation_formulaire_configurations>

@@ -1,0 +1,36 @@
+[(#ID_RESERVATION_FORMULAIRE_CONFIGURATION|oui)
+	[(#AUTORISER{modifier,reservation_formulaire_configuration,#ID_RESERVATION_FORMULAIRE_CONFIGURATION}|sinon_interdire_acces)]
+	[(#SET{id_parent,#INFO_{reservation_formulaire_configuration,#ID_RESERVATION_FORMULAIRE_CONFIGURATION}})]
+]
+
+
+[(#ID_RESERVATION_FORMULAIRE_CONFIGURATION|non)
+	[(#AUTORISER{creer,reservation_formulaire_configuration}|sinon_interdire_acces)]
+]
+
+#SET{redirect,#ENV{redirect}|sinon{#ID_RESERVATION_FORMULAIRE_CONFIGURATION|?{#ID_RESERVATION_FORMULAIRE_CONFIGURATION|generer_url_entite{reservation_formulaire_configuration},#URL_ECRIRE{reservation_formulaire_configurations}}}}
+
+
+
+<div class="cadre-formulaire-editer">
+<div class="entete-formulaire">
+	[(#ID_RESERVATION_FORMULAIRE_CONFIGURATION|oui)
+	[(#GET{redirect}|icone_verticale{<:icone_retour:>,reservation_formulaire_configuration,'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+	]
+	[
+		[(#ID_RESERVATION_FORMULAIRE_CONFIGURATION|?{<:reservation_formulaire_configuration:icone_modifier_reservation_formulaire_configuration:>,<:reservation_formulaire_configuration:icone_creer_reservation_formulaire_configuration:>})]
+		<h1>(#ENV{titre,#INFO_TITRE{reservation_formulaire_configuration,#ID_RESERVATION_FORMULAIRE_CONFIGURATION}|sinon{<:info_sans_titre:>}})</h1>
+	]
+</div>
+
+#SET{redirect,#ENV{redirect,#ID_RESERVATION_FORMULAIRE_CONFIGURATION|generer_url_entite{reservation_formulaire_configuration}}}
+[(#ENV{retourajax,''}|oui)
+	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+	<div class="ajax">
+]
+		[(#FORMULAIRE_EDITER_RESERVATION_FORMULAIRE_CONFIGURATION{#ENV{id_reservation_formulaire_configuration,oui}, #GET{redirect}, #ENV{associer_objet}})]
+[(#ENV{retourajax,''}|oui)
+	</div>
+	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+]
+</div>
