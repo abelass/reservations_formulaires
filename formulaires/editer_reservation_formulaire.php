@@ -16,6 +16,61 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 include_spip('inc/actions');
 include_spip('inc/editer');
 
+/**
+ * Récupère les définitions des promotions.
+ *
+ * @param string $type_promotion
+ *      Le Type de promotion.
+ * @param array $valeurs
+ *      Les valeurs par défaut
+ *
+ * @return array
+ *      défintion en format du plugin saisies.
+ */
+function reservation_formulaire_definition_saisies($type_promotion, $valeurs = array()) {
+
+	// Chercher les fichiers promotions
+	$configurations = find_all_in_path("formulaire_configurations/", '^');
+
+	$promotions_noms = array();
+	$promotions_defs = array();
+
+	$promotions_dispos = isset($valeurs['promotions']) ? $valeurs['promotions'] : '';
+	$rangs = isset($valeurs['rangs']) ? $valeurs['rangs'] : '';
+	$nombre_promotions = isset($valeurs['nombre_promotions']) ? $valeurs['nombre_promotions'] : 0;
+
+	if (is_array($promotions)) {
+		foreach ($promotions as $fichier => $chemin) {
+			list($nom, $extension) = explode('.', $fichier);
+			// Charger la définition des champs
+			if ($defs = charger_fonction($nom, "promotions", true)) {
+				$promotion = $defs($valeurs);
+				if ($type_promotion == $nom and isset($promotion['saisies'])) {
+					$promotions_defs = array(
+						array(
+							'saisie' => 'fieldset',
+							'options' => array(
+								'nom' => 'specifique',
+								'label' => _T('promotion:label_parametres_specifiques')
+							),
+							'saisies' => $promotion['saisies']
+						)
+					);
+				}
+				// Lister les promotions dipsonibles
+				if (isset($promotion['nom']))
+					$promotions_noms[$nom] = $promotion['nom'];
+			}
+		}
+	}
+
+
+
+	$saisies = array_merge($promotions_defs);
+
+	return $saisies;
+}
+
 
 /**
  * Identifier le formulaire en faisant abstraction des paramètres qui ne représentent pas l'objet edité
@@ -139,9 +194,9 @@ function formulaires_editer_reservation_formulaire_traiter_dist($id_reservation_
 
 		if ($objet and $id_objet and autoriser('modifier', $objet, $id_objet)) {
 			include_spip('action/editer_liens');
-			
+
 			objet_associer(array('reservation_formulaire' => $id_reservation_formulaire), array($objet => $id_objet));
-			
+
 			if (isset($retours['redirect'])) {
 				$retours['redirect'] = parametre_url($retours['redirect'], 'id_lien_ajoute', $id_reservation_formulaire, '&');
 			}

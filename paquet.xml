@@ -6,17 +6,17 @@
 	compatibilite="[3.1.6;3.2.*]"
 	logo="prive/themes/spip/images/reservations_formulaires-64.png"
 	documentation=""
-	schema="1.0.0" 
+	schema="1.0.0"
 >
 	<!--
 		Paquet généré le 2017-07-01 17:14:23
-		(Vous pouvez bien entendu supprimer ces commentaires) 
+		(Vous pouvez bien entendu supprimer ces commentaires)
 	-->
 
 	<nom>Réservations formulaires</nom>
 	<!-- Gérer ses formulaires depuis l&#039;espace privé -->
 
-	<!-- cette balise peut être présente plusieurs fois s'il y a plusieurs auteurs --> 
+	<!-- cette balise peut être présente plusieurs fois s'il y a plusieurs auteurs -->
 	<auteur>Rainer Müller</auteur>
 
 	<licence>GNU/GPL</licence>
@@ -30,26 +30,26 @@
 		* pipelines
 		<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" />
 		<pipeline nom="insert_head" inclure="reservations_formulaires_pipelines.php" />
-		* declarer un pipeline 
+		* declarer un pipeline
 		<pipeline nom="mon_pipeline" action="" />
 		* parents de menus de SPIP :
 				menu_accueil (à éviter), menu_edition, menu_publication,
-				menu_activite, menu_squelette, menu_administration, menu_configuration 
+				menu_activite, menu_squelette, menu_administration, menu_configuration
 		<menu nom="reservations_formulaires" titre="reservations_formulaires:reservations_formulaires_titre" parent="menu_edition"  icone="images/reservations_formulaires-16.png" />
-		* parents d'onglets... configuration, plugins, statistiques, ... 
+		* parents d'onglets... configuration, plugins, statistiques, ...
 		<onglet nom="reservations_formulaires" titre="reservations_formulaires:reservations_formulaires_titre" parent="configuration" icone="images/reservations_formulaires-24.png" />
 	-->
 
-	<necessite nom="saisies" compatibilite="[2.4.0;]" /> 
+	<necessite nom="saisies" compatibilite="[2.18.18;]" />
 
 
-	<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" /> 
+	<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" />
 
-	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservations_formulaires.php" /> 
-	<pipeline nom="declarer_tables_interfaces" inclure="base/reservations_formulaires.php" /> 
-	<pipeline nom="affiche_milieu" inclure="reservations_formulaires_pipelines.php" /> 
-	<pipeline nom="affiche_auteurs_interventions" inclure="reservations_formulaires_pipelines.php" /> 
-	<pipeline nom="optimiser_base_disparus" inclure="reservations_formulaires_pipelines.php" /> 
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservations_formulaires.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/reservations_formulaires.php" />
+	<pipeline nom="affiche_milieu" inclure="reservations_formulaires_pipelines.php" />
+	<pipeline nom="affiche_auteurs_interventions" inclure="reservations_formulaires_pipelines.php" />
+	<pipeline nom="optimiser_base_disparus" inclure="reservations_formulaires_pipelines.php" />
 
-	<menu nom="reservation_formulaires" titre="reservation_formulaire:titre_reservation_formulaires" parent="menu_edition" icone="images/reservation_formulaire-16.png" action="reservation_formulaires" /> 
+	<menu nom="reservation_formulaires" titre="reservation_formulaire:titre_reservation_formulaires" parent="menu_edition" icone="images/reservation_formulaire-16.png" action="reservation_formulaires" />
 </paquet>
