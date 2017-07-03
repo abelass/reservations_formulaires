@@ -114,3 +114,43 @@ function reservations_formulaires_declarer_tables_objets_sql($tables) {
 
 	return $tables;
 }
+
+/**
+ * Déclaration des tables secondaires (liaisons)
+ *
+ * @pipeline declarer_tables_auxiliaires
+ * @param array $tables
+ *     Description des tables
+ * @return array
+ *     Description complétée des tables
+ */
+function reservations_formulaires_declarer_tables_auxiliaires($tables) {
+
+	$tables['spip_reservation_formulaires_liens'] = array(
+		'field' => array(
+			'id_reservation_formulaire'    => 'bigint(21) DEFAULT "0" NOT NULL',
+			'id_objet'           => 'bigint(21) DEFAULT "0" NOT NULL',
+			'objet'              => 'VARCHAR(25) DEFAULT "" NOT NULL',
+			'vu'                 => 'VARCHAR(6) DEFAULT "non" NOT NULL',
+		),
+		'key' => array(
+			'PRIMARY KEY'        => 'id_reservation_formulaire,id_objet,objet',
+			'KEY id_reservation_formulaire' => 'id_reservation_formulaire',
+		)
+	);
+
+	$tables['spip_reservation_formulaire_configurations_liens'] = array(
+		'field' => array(
+			'id_reservation_formulaire_configuration'    => 'bigint(21) DEFAULT "0" NOT NULL',
+			'id_objet'           => 'bigint(21) DEFAULT "0" NOT NULL',
+			'objet'              => 'VARCHAR(25) DEFAULT "" NOT NULL',
+			'vu'                 => 'VARCHAR(6) DEFAULT "non" NOT NULL',
+		),
+		'key' => array(
+			'PRIMARY KEY'        => 'id_reservation_formulaire_configuration,id_objet,objet',
+			'KEY id_reservation_formulaire_configuration' => 'id_reservation_formulaire_configuration',
+		)
+	);
+
+	return $tables;
+}

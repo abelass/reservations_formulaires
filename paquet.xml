@@ -46,6 +46,7 @@
 	<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" />
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservations_formulaires.php" />
+	<pipeline nom="declarer_tables_auxiliaires" inclure="base/reservations_formulaires.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/reservations_formulaires.php" />
 	<pipeline nom="affiche_milieu" inclure="reservations_formulaires_pipelines.php" />
 	<pipeline nom="affiche_auteurs_interventions" inclure="reservations_formulaires_pipelines.php" />
