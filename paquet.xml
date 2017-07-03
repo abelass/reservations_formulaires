@@ -41,7 +41,7 @@
 	-->
 
 	<necessite nom="saisies" compatibilite="[2.18.18;]" />
-
+	<necessite nom="reservation_evenement" compatibilite="[1.26.0;]" />
 
 	<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" />
 
