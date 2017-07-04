@@ -35,8 +35,8 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 			// Charger la définition des champs
 			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
 				$configuration = $confs($valeurs);
-				if ($type_configuration == $nom and isset($configuration['saisies'])) {
-					$configurations_defs[] = array(
+				if ($type == $nom and isset($configuration['saisies'])) {
+					$configurations[]= array(
 							'saisie' => 'fieldset',
 							'options' => array(
 								'nom' => 'specifique',
@@ -50,22 +50,20 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 				if (isset($configuration['nom']))
 					$configurations_noms[$nom] = $configuration['nom'];
 			}
-			print_r($configurations_noms);
 		}
 	}
 
-	$defaut = array (
+	$defaut = array('saisies' => array (
 		'saisie' => 'selection',
 		'options' => array (
 			'nom' => 'type',
-			'label' => _T('reservation_formulaire:champ_type_configuration_label'),
-			'obligatoire' => 'oui',
-			'data' => $configurations_noms,
-			'class' => 'auto_submit'
+			'label' => _T('reservation_formulaire_configuration:champ_type_label'),
+			'datas' => $configurations_noms,
 		)
-	);
+	));
 
-	$saisies = array_merge($defaut, $configurations_defs);
+	$saisies = array_merge($defaut, $configurations);
+
 
 	return $saisies;
 }

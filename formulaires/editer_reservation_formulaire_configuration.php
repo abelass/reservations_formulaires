@@ -75,7 +75,7 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 	$type = _request('type') ? _request('type') :
 		(isset($valeurs['type']) ? $valeurs['type'] : '');
 
-	$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
+		$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
 
 	// initialiser les donnees spécifiques de la promotion
 	if (isset($valeurs['_saisies'][1]['saisies'])) {
@@ -89,7 +89,6 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 			}
 		}
 	}
-
 	return $valeurs;
 }
 
@@ -160,9 +159,9 @@ function formulaires_editer_reservation_formulaire_configuration_traiter_dist($i
 
 		if ($objet and $id_objet and autoriser('modifier', $objet, $id_objet)) {
 			include_spip('action/editer_liens');
-			
+
 			objet_associer(array('reservation_formulaire_configuration' => $id_reservation_formulaire_configuration), array($objet => $id_objet));
-			
+
 			if (isset($retours['redirect'])) {
 				$retours['redirect'] = parametre_url($retours['redirect'], 'id_lien_ajoute', $id_reservation_formulaire_configuration, '&');
 			}

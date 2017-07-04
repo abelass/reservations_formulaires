@@ -14,8 +14,7 @@
 			[(#SAISIE{textarea, descriptif,
 				label=<:reservation_formulaire_configuration:champ_descriptif_label:>})]
 
-			[(#SAISIE{selection, type, obligatoire=oui,
-				label=<:reservation_formulaire_configuration:champ_type_label:>})]
+			#GENERER_SAISIES{#ENV{_saisies}}
 
 		</div>
 		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
