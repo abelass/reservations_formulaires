@@ -18,7 +18,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_reservation_formulaires(RESERVATION_FORMULAIRES){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
+	<BOUCLE_liste_reservation_formulaires(RESERVATION_FORMULAIRES){reservation_formulaire_configurations_liens.id_reservation_formulaire_configuration?}{id_mot?}{auteurs_liens.id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class="picto">[(#CHEMIN_IMAGE{reservation_formulaire-16.png}|balise_img)]</td>
 			<td class="statut">[(#STATUT|puce_statut{reservation_formulaire,#ID_RESERVATION_FORMULAIRE})]</td> 

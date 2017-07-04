@@ -2,7 +2,7 @@
 
 /**
  *  Fichier généré par la Fabrique de plugin v6
- *   le 2017-07-01 17:14:23
+ *   le 2017-07-04 09:06:33
  *
  *  Ce fichier de sauvegarde peut servir à recréer
  *  votre plugin avec le plugin «Fabrique» qui a servi à le créer.
@@ -162,7 +162,7 @@ $data = array (
         'confirmer_supprimer_objet' => 'Confirmez-vous la suppression de cet formulaire de réservation ?',
       ),
       'liaison_directe' => '',
-      'table_liens' => '',
+      'table_liens' => 'on',
       'vue_liens' => 
       array (
         0 => 'spip_articles',
@@ -208,6 +208,7 @@ $data = array (
       'genre' => 'feminin',
       'logo' => 
       array (
+        0 => '',
         32 => '',
         24 => '',
         16 => '',
@@ -312,15 +313,32 @@ $data = array (
         'confirmer_supprimer_objet' => 'Confirmez-vous la suppression de cette configuration de formulaire ?',
       ),
       'liaison_directe' => '',
-      'table_liens' => '',
+      'table_liens' => 'on',
       'vue_liens' => 
       array (
         0 => 'spip_reservation_formulaires',
       ),
       'afficher_liens' => 'on',
       'roles' => '',
-      'auteurs_liens' => 'on',
-      'vue_auteurs_liens' => 'on',
+      'auteurs_liens' => '',
+      'vue_auteurs_liens' => '',
+      'fichiers' => 
+      array (
+        'echafaudages' => 
+        array (
+          0 => 'prive/squelettes/contenu/objets.html',
+          1 => 'prive/objets/infos/objet.html',
+          2 => 'prive/squelettes/contenu/objet.html',
+        ),
+        'explicites' => 
+        array (
+          0 => 'action/supprimer_objet.php',
+        ),
+      ),
+      'saisies' => 
+      array (
+        0 => 'objets',
+      ),
       'autorisations' => 
       array (
         'objet_creer' => '',

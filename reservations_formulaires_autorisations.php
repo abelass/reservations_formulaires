@@ -114,7 +114,20 @@ function autoriser_reservationformulaire_supprimer_dist($faire, $type, $id, $qui
 }
 
 
-// -----------------
+
+/**
+ * Autorisation de lier/délier l'élément (reservationformulaires)
+ *
+ * @param  string $faire Action demandée
+ * @param  string $type  Type d'objet sur lequel appliquer l'action
+ * @param  int    $id    Identifiant de l'objet
+ * @param  array  $qui   Description de l'auteur demandant l'autorisation
+ * @param  array  $opt   Options de cette autorisation
+ * @return bool          true s'il a le droit, false sinon
+**/
+function autoriser_associerreservationformulaires_dist($faire, $type, $id, $qui, $opt) {
+	return $qui['statut'] == '0minirezo' and !$qui['restreint'];
+}// -----------------
 // Objet reservation_formulaire_configurations
 
 
@@ -173,5 +186,21 @@ function autoriser_reservationformulaireconfiguration_modifier_dist($faire, $typ
  * @return bool          true s'il a le droit, false sinon
 **/
 function autoriser_reservationformulaireconfiguration_supprimer_dist($faire, $type, $id, $qui, $opt) {
+	return $qui['statut'] == '0minirezo' and !$qui['restreint'];
+}
+
+
+
+/**
+ * Autorisation de lier/délier l'élément (reservationformulaireconfigurations)
+ *
+ * @param  string $faire Action demandée
+ * @param  string $type  Type d'objet sur lequel appliquer l'action
+ * @param  int    $id    Identifiant de l'objet
+ * @param  array  $qui   Description de l'auteur demandant l'autorisation
+ * @param  array  $opt   Options de cette autorisation
+ * @return bool          true s'il a le droit, false sinon
+**/
+function autoriser_associerreservationformulaireconfigurations_dist($faire, $type, $id, $qui, $opt) {
 	return $qui['statut'] == '0minirezo' and !$qui['restreint'];
 }

@@ -34,8 +34,8 @@ function reservations_formulaires_affiche_milieu($flux) {
 	$texte = '';
 	$e = trouver_objet_exec($flux['args']['exec']);
 
-	// auteurs sur les reservation_formulaires, reservation_formulaire_configurations
-	if (!$e['edition'] and in_array($e['type'], array('reservation_formulaire', 'reservation_formulaire_configuration'))) {
+	// auteurs sur les reservation_formulaires
+	if (!$e['edition'] and in_array($e['type'], array('reservation_formulaire'))) {
 		$texte .= recuperer_fond('prive/objets/editer/liens', array(
 			'table_source' => 'auteurs',
 			'objet' => $e['type'],
@@ -44,6 +44,22 @@ function reservations_formulaires_affiche_milieu($flux) {
 	}
 
 
+	// reservation_formulaires sur les articles
+	if (!$e['edition'] and in_array($e['type'], array('article'))) {
+		$texte .= recuperer_fond('prive/objets/editer/liens', array(
+			'table_source' => 'reservation_formulaires',
+			'objet' => $e['type'],
+			'id_objet' => $flux['args'][$e['id_table_objet']]
+		));
+	}
+	// reservation_formulaire_configurations sur les reservation_formulaires
+	if (!$e['edition'] and in_array($e['type'], array('reservation_formulaire'))) {
+		$texte .= recuperer_fond('prive/objets/editer/liens', array(
+			'table_source' => 'reservation_formulaire_configurations',
+			'objet' => $e['type'],
+			'id_objet' => $flux['args'][$e['id_table_objet']]
+		));
+	}
 
 	if ($texte) {
 		if ($p = strpos($flux['data'], '<!--affiche_milieu-->')) {
@@ -70,11 +86,6 @@ function reservations_formulaires_affiche_auteurs_interventions($flux) {
 			'id_auteur' => $id_auteur,
 			'titre' => _T('reservation_formulaire:info_reservation_formulaires_auteur')
 		), array('ajax' => true));
-	
-		$flux['data'] .= recuperer_fond('prive/objets/liste/reservation_formulaire_configurations', array(
-			'id_auteur' => $id_auteur,
-			'titre' => _T('reservation_formulaire_configuration:info_reservation_formulaire_configurations_auteur')
-		), array('ajax' => true));
 	}
 	return $flux;
 }
@@ -85,6 +96,8 @@ function reservations_formulaires_affiche_auteurs_interventions($flux) {
 /**
  * Optimiser la base de données
  *
+ * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
+ * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
  * Supprime les objets à la poubelle.
  *
  * @pipeline optimiser_base_disparus
@@ -92,6 +105,9 @@ function reservations_formulaires_affiche_auteurs_interventions($flux) {
  * @return array       Données du pipeline
  */
 function reservations_formulaires_optimiser_base_disparus($flux) {
+
+	include_spip('action/editer_liens');
+	$flux['data'] += objet_optimiser_liens(array('reservation_formulaire'=>'*', 'reservation_formulaire_configuration'=>'*'), '*');
 
 	sql_delete('spip_reservation_formulaires', "statut='poubelle' AND maj < " . $flux['args']['date']);
 

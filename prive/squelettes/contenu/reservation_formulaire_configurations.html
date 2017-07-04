@@ -1,0 +1,8 @@
+#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
+<div class="nettoyeur"></div>
+
+<INCLURE{fond=prive/objets/liste/reservation_formulaire_configurations, env, ajax, sinon=<:reservation_formulaire_configuration:info_aucun_reservation_formulaire_configuration:>}>
+
+[(#AUTORISER{creer,reservation_formulaire_configuration})
+	[(#URL_ECRIRE{reservation_formulaire_configuration_edit,new=oui}|icone_verticale{<:reservation_formulaire_configuration:icone_creer_reservation_formulaire_configuration:>,reservation_formulaire_configuration,new,right})]
+]

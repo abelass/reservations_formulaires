@@ -17,6 +17,7 @@ include_spip('inc/actions');
 include_spip('inc/editer');
 include_spip('inc/reservations_formulaires');
 
+
 /**
  * Identifier le formulaire en faisant abstraction des paramètres qui ne représentent pas l'objet edité
  *
@@ -159,9 +160,9 @@ function formulaires_editer_reservation_formulaire_configuration_traiter_dist($i
 
 		if ($objet and $id_objet and autoriser('modifier', $objet, $id_objet)) {
 			include_spip('action/editer_liens');
-
+			
 			objet_associer(array('reservation_formulaire_configuration' => $id_reservation_formulaire_configuration), array($objet => $id_objet));
-
+			
 			if (isset($retours['redirect'])) {
 				$retours['redirect'] = parametre_url($retours['redirect'], 'id_lien_ajoute', $id_reservation_formulaire_configuration, '&');
 			}
