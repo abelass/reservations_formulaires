@@ -28,15 +28,15 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 	$configurations_noms = array();
 	$configurations = array();
 
-
 	if (is_array($configurations_defs)) {
+
 		foreach ($configurations_defs as $fichier => $chemin) {
 			list($nom, $extension) = explode('.', $fichier);
 			// Charger la définition des champs
-			if ($confs = charger_fonction($nom, "configurations", true)) {
+			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
 				$configuration = $confs($valeurs);
-				if ($type_configuration== $nom and isset($promotion['saisies'])) {
-					$promotions_defs[] = array(
+				if ($type_configuration == $nom and isset($configuration['saisies'])) {
+					$configurations_defs[] = array(
 							'saisie' => 'fieldset',
 							'options' => array(
 								'nom' => 'specifique',
@@ -47,9 +47,10 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 					);
 				}
 				// Lister les promotions dipsonibles
-				if (isset($promotion['nom']))
-					$configurations_noms[$nom] = $promotion['nom'];
+				if (isset($configuration['nom']))
+					$configurations_noms[$nom] = $configuration['nom'];
 			}
+			print_r($configurations_noms);
 		}
 	}
 
@@ -59,12 +60,12 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 			'nom' => 'type',
 			'label' => _T('reservation_formulaire:champ_type_configuration_label'),
 			'obligatoire' => 'oui',
-			'datas' => $configurations_noms,
+			'data' => $configurations_noms,
 			'class' => 'auto_submit'
 		)
 	);
 
-	$saisies = array_merge($defaut, $promotions_defs);
+	$saisies = array_merge($defaut, $configurations_defs);
 
 	return $saisies;
 }
