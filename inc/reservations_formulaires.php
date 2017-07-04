@@ -64,6 +64,8 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 
 	$saisies = array_merge($defaut, $configurations);
 
+	$saisies['champs_extras'] = $configuration['champs_extras'];
+
 
 	return $saisies;
 }

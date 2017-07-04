@@ -89,6 +89,7 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 			}
 		}
 	}
+
 	return $valeurs;
 }
 
