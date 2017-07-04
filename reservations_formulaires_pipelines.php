@@ -31,6 +31,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return array       Données du pipeline
  */
 function reservations_formulaires_affiche_milieu($flux) {
+	include_spip('inc/config');
 	$texte = '';
 	$e = trouver_objet_exec($flux['args']['exec']);
 
@@ -45,7 +46,7 @@ function reservations_formulaires_affiche_milieu($flux) {
 
 
 	// reservation_formulaires sur les articles
-	if (!$e['edition'] and in_array($e['type'], array('article'))) {
+	if (!$e['edition'] and in_array($e['table_objet_sql'], array_filter(lire_config('reservations_formulaires/objets', array ())))) {
 		$texte .= recuperer_fond('prive/objets/editer/liens', array(
 			'table_source' => 'reservation_formulaires',
 			'objet' => $e['type'],

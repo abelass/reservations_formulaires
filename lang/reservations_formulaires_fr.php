@@ -11,8 +11,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'reservations_formulaires_titre' => 'Réservations formulaires',
 
 	// C
-	'cfg_exemple' => 'Exemple',
-	'cfg_exemple_explication' => 'Explication de cet exemple',
+	'configurer_objets_label' => 'Activer l’ajout de formulaires sur les contenus :',
 	'cfg_titre_parametrages' => 'Paramétrages',
 
 	// T
