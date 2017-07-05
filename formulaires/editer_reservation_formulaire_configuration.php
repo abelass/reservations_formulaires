@@ -75,18 +75,14 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 	$type = _request('type') ? _request('type') :
 		(isset($valeurs['type']) ? $valeurs['type'] : '');
 
-		$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
+	$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
+	$saisies = saisies_lister_par_nom($valeurs['_saisies']);
 
-	// initialiser les donnees spécifiques de la promotion
-	if (isset($valeurs['_saisies'][1]['saisies'])) {
-		foreach ($valeurs['_saisies'][1]['saisies'] as $saisie) {
-			if (isset($saisie['options']['nom'])) {
-				$valeurs[$saisie['options']['nom']] = _request($saisie['options']['nom']) ?
-					_request($saisie['options']['nom']) :
-					(isset($valeurs_configurations[$saisie['options']['nom']]) ?
-						$valeurs_configurations[$saisie['options']['nom']] :
-						'');
-			}
+	// initialiser les donnees spécifiques de la configuration
+	foreach ($saisies as $saisie) {
+		if (isset($saisie['options']['nom']) and $nom = $saisie['options']['nom']) {
+			$valeurs[$nom] = _request($nom) ? _request($nom) :
+				(isset($valeurs_configurations[$nom]) ? $valeurs_configurations[$nom] :'');
 		}
 	}
 
