@@ -8,15 +8,11 @@
 	documentation=""
 	schema="1.0.1"
 >
-	<!--
-		Paquet généré le 2017-07-04 09:06:33
-		(Vous pouvez bien entendu supprimer ces commentaires)
-	-->
+
 
 	<nom>Réservations formulaires</nom>
 	<!-- Gérer ses formulaires depuis l&#039;espace privé -->
 
-	<!-- cette balise peut être présente plusieurs fois s'il y a plusieurs auteurs -->
 	<auteur>Rainer Müller</auteur>
 
 	<licence>GNU/GPL</licence>
@@ -41,7 +37,7 @@
 	-->
 
 	<necessite nom="saisies" compatibilite="[2.18.18;]" />
-	<necessite nom="reservation_evenement" compatibilite="[1.26.0;]" />
+	<necessite nom="reservation_evenement" compatibilite="[1.26.2;]" />
 
 
 	<pipeline nom="autoriser" inclure="reservations_formulaires_autorisations.php" />

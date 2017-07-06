@@ -1,0 +1,3 @@
+#SET{contexte, #ENV**|rf_recuperer_contexte|serialize}
+
+<INCLURE{fond=modeles/reservation,env, options=#GET{contexte}|table_valeur{options}} />
