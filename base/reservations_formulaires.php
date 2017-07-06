@@ -46,7 +46,7 @@ function reservations_formulaires_declarer_tables_objets_sql($tables) {
 	$tables['spip_reservation_formulaires'] = array(
 		'type' => 'reservation_formulaire',
 		'principale' => 'oui',
-		'table_objet_surnoms' => array('reservationformulaire'), // table_objet('reservation_formulaire') => 'reservation_formulaires' 
+		'table_objet_surnoms' => array('reservationformulaire'), // table_objet('reservation_formulaire') => 'reservation_formulaires'
 		'field'=> array(
 			'id_reservation_formulaire' => 'bigint(21) NOT NULL',
 			'titre'              => 'varchar(255) NOT NULL DEFAULT ""',
@@ -89,7 +89,7 @@ function reservations_formulaires_declarer_tables_objets_sql($tables) {
 	$tables['spip_reservation_formulaire_configurations'] = array(
 		'type' => 'reservation_formulaire_configuration',
 		'principale' => 'oui',
-		'table_objet_surnoms' => array('reservationformulaireconfiguration'), // table_objet('reservation_formulaire_configuration') => 'reservation_formulaire_configurations' 
+		'table_objet_surnoms' => array('reservationformulaireconfiguration'), // table_objet('reservation_formulaire_configuration') => 'reservation_formulaire_configurations'
 		'field'=> array(
 			'id_reservation_formulaire_configuration' => 'bigint(21) NOT NULL',
 			'titre'              => 'varchar(255) NOT NULL DEFAULT ""',
@@ -153,4 +153,9 @@ function reservations_formulaires_declarer_tables_auxiliaires($tables) {
 	);
 
 	return $tables;
+}
+
+function reservations_formulaires_declarer_tables_principales($tables_principales) {
+	$tables_principales['spip_reservations']['field']['id_reservation_formulaire'] = 'bigint(21) DEFAULT "0" NOT NULL';
+	return $tables_principales;
 }
