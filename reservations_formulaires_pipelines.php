@@ -104,3 +104,76 @@ function reservations_formulaires_optimiser_base_disparus($flux) {
 	return $flux;
 }
 
+/**
+ * Intervient lors du chargement d'un objet.
+ *
+ * @pipeline formulaire_charger
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function reservations_formulaires_formulaire_charger($flux) {
+	$form = $flux['args']['form'];
+	$forms = array (
+		'reservation',
+		'editer_reservationt'
+	);
+	$contexte = $flux['data'];
+
+	// Charger les valeurs par défaut
+	if (in_array($form, $forms)) {
+		$configurations = array();
+		if (isset($contexte['configurations'])) {
+			$configurations = $contexte['configurations'];
+			$type = $configurations['type'];
+		}
+		elseif(isset($contexte['id_reservation_formulaire'])) {
+			$sql = sql_select('type,configuration',
+				'spip_reservation_formulaire_configurations_liens',
+				'spip_reservation_formulaire_configurations',
+				'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
+			
+			while ($data = sql_fetch(sql)) {
+				$type = $data['type'];
+				$configurations[$type] = json_decode($data['configuration'], true);
+			}
+		}
+		foreach ($configurations AS $type => $configuration) {
+			if ($charger = charger_fonction('charger', 'formulaire_configurations/' .$type, true)) {
+				$contexte = $charger($type, $contexte, $configuration);
+			//	print_r($contexte['champs_extras_auteurs']);
+			}
+		}
+		
+		$flux['data'] = $contexte;
+		
+	}
+	return $flux;
+}
+
+/**
+ * Intervient lors du chargement d'un objet.
+ *
+ * @pipeline formulaire_verifier
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function reservations_formulaires_formulaire_verifier($flux) {
+	$form = $flux['args']['form'];
+	$forms = array (
+		'editer_article',
+		'editer_evenement'
+	);
+	$contexte = $flux['data'];
+
+	// Charger les valeurs par défaut
+	if (in_array($form, $forms)) {
+		$action_cloture = $contexte['action_cloture'];
+		$id_evenement = isset($contexte['id_evenement']) ? $contexte['id_evenement'] : '0';
+		if ($form == $forms[1] and (! $action_cloture or $action_cloture == 0) and $form == 'editer_evenement' and intval($contexte['id_parent'])) {
+			$action_cloture = sql_getfetsel('action_cloture', 'spip_articles', 'id_article=' . $contexte['id_parent']);
+		}
+		if ($action_cloture)
+			$flux['data']['action_cloture'] = $action_cloture;
+	}
+	return $flux;
+}

@@ -42,7 +42,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 						'saisies' => $configuration['saisies']
 					);
 				}
-				// Lister les promotions dipsonibles
+				// Lister les configurations disponibles.
 				if (isset($configuration['nom']))
 					$configurations_noms[$nom] = $configuration['nom'];
 			}
