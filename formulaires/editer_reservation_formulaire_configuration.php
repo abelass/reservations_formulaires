@@ -125,12 +125,16 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 	$saisies_verifier= saisies_verifier($definitions_saisies);
 
 	$saisies = saisies_lister_par_nom($definitions_saisies);
+	
+	print_r(saisies);
 
 	$configuration = array();
 
 	foreach ($saisies AS $saisie) {
-		$nom = $saisie['options']['nom'];
-		$configuration[$nom] = _request($nom);
+		if($saisie['saisie'] != 'fieldset')	{
+			$nom = $saisie['options']['nom'];
+			$configuration[$nom] = _request($nom);
+		}
 	}
 
 	set_request('configuration', json_encode($configuration));

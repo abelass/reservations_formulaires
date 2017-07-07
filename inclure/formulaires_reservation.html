@@ -1,8 +1,22 @@
-<BOUCLE_formulaires(RESERVATION_FORMULAIRES reservation_formulaire_configurations_liens reservation_formulaire_configurations) {objet} {id_objet}>
-
-#TITRE
-
-#CONFIGURATION
+<BOUCLE_formulaires(RESERVATION_FORMULAIRES) {objet} {id_objet}>
+#SET{configurations, #ARRAY}
+	<BOUCLE_configurations(RESERVATION_FORMULAIRE_CONFIGURATIONS) {id_reservation_formulaire}>
+	#SET{configuration,#CONFIGURATION|json_decode{1}}
+	[(#GET{configuration}|table_valeur{traitement}|=={options}|oui)
+		#SET{configurations, 
+			#GET{configurations}|array_merge{#ARRAY{
+				#ID_RESERVATION_FORMULAIRE_CONFIGURATION, #GET{configuration}
+				}
+			}
+		}
+	]
+	</BOUCLE_configurations>
+	#SET{options, #ENV**{option,#ARRAY{}}|array_merge{#ARRAY{
+		'configurations',#GET{configurations}
+			}
+		}
+	}
+	<INCLURE{fond=modeles/reservation,env, options=#GET{options}} />
 </BOUCLE_formulaires>
 
-<INCLURE{fond=modeles/reservation,env} />
+

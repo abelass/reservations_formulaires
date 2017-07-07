@@ -36,7 +36,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 					$configurations[] = array(
 						'saisie' => 'fieldset',
 						'options' => array(
-							'nom' => 'specifique',
+							'nom' => 'configurations',
 							'label' => _T('reservation_formulaire_configuration:champ_configuration_label')
 						),
 						'saisies' => $configuration['saisies']
