@@ -140,7 +140,6 @@ function reservations_formulaires_formulaire_charger($flux) {
 		foreach ($configurations AS $type => $configuration) {
 			if ($charger = charger_fonction('charger', 'formulaire_configurations/' .$type, true)) {
 				$contexte = $charger($type, $contexte, $configuration);
-			//	print_r($contexte['champs_extras_auteurs']);
 			}
 		}
 		
