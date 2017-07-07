@@ -23,16 +23,16 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 
 	// Chercher les fichiers promotions
 	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
-
 	$configurations_noms = array();
-
+	$configurations = array();
 	if (is_array($configurations_defs)) {
 
 		foreach ($configurations_defs as $fichier => $chemin) {
-			list($nom, $extension) = explode('.', $fichier);
+			list($nom, $extension) = explode('.', $fichier);;
 			// Charger la définition des champs
 			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
-				if ($type == $nom and $configuration = $confs($valeurs) and isset($configuration['saisies'])) {
+				$configuration = $confs($valeurs);
+				if ($type == $nom and isset($configuration['saisies'])) {
 					$configurations[] = array(
 						'saisie' => 'fieldset',
 						'options' => array(

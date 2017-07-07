@@ -155,6 +155,15 @@ function reservations_formulaires_declarer_tables_auxiliaires($tables) {
 	return $tables;
 }
 
+/**
+ * Déclaration des tables principales
+ *
+ * @pipeline declarer_tables_principales
+ * @param array $tables
+ *     Description des tables
+ * @return array
+ *     Description complétée des tables
+ */
 function reservations_formulaires_declarer_tables_principales($tables_principales) {
 	$tables_principales['spip_reservations']['field']['id_reservation_formulaire'] = 'bigint(21) DEFAULT "0" NOT NULL';
 	return $tables_principales;

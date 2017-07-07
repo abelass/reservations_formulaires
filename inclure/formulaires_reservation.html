@@ -1,3 +1,8 @@
-#SET{contexte, #ENV**|rf_recuperer_contexte|serialize}
+<BOUCLE_formulaires(RESERVATION_FORMULAIRES reservation_formulaire_configurations_liens reservation_formulaire_configurations) {objet} {id_objet}>
 
-<INCLURE{fond=modeles/reservation,env, options=#GET{contexte}|table_valeur{options}} />
+#TITRE
+
+#CONFIGURATION
+</BOUCLE_formulaires>
+
+<INCLURE{fond=modeles/reservation,env} />
