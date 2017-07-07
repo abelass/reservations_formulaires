@@ -1,11 +1,14 @@
 <BOUCLE_formulaires(RESERVATION_FORMULAIRES) {objet} {id_objet}>
+#SET{id_evenement, #ARRAY}
+#SET{id_article, #ARRAY}
+#SET{retour, #ARRAY}
 #SET{configurations, #ARRAY}
 	<BOUCLE_configurations(RESERVATION_FORMULAIRE_CONFIGURATIONS) {id_reservation_formulaire}>
 	#SET{configuration,#CONFIGURATION|json_decode{1}}
 	[(#GET{configuration}|table_valeur{traitement}|=={options}|oui)
 		#SET{configurations, 
 			#GET{configurations}|array_merge{#ARRAY{
-				#ID_RESERVATION_FORMULAIRE_CONFIGURATION, #GET{configuration}
+					#TYPE, #GET{configuration}
 				}
 			}
 		}
