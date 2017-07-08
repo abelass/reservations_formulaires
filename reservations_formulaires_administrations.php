@@ -54,7 +54,7 @@ function reservations_formulaires_upgrade($nom_meta_base_version, $version_cible
 	$maj['create'] = array(array('maj_tables', array('spip_reservation_formulaires', 'spip_reservation_formulaires_liens', 'spip_reservation_formulaire_configurations', 'spip_reservation_formulaire_configurations_liens')));
 	$maj['1.0.1'] = array(
 		array('maj_tables', array('spip_reservations')),
-		array('sql_alter','TABLE spip_reservations ADD INDEX `statut` (`id_reservation_formulaire`)')
+		array('sql_alter','TABLE spip_reservations ADD INDEX `id_reservation_formulaire` (`id_reservation_formulaire`)')
 	);
 
 	include_spip('base/upgrade');
