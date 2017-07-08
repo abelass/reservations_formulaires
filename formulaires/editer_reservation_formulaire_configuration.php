@@ -78,6 +78,10 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 	$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
 	$saisies = saisies_lister_par_nom($valeurs['_saisies']);
 
+	print '<pre>';
+	print_r($valeurs['_saisies']);
+	print '</pre>';
+
 	// initialiser les donnees spécifiques de la configuration
 	foreach ($saisies as $saisie) {
 		if (isset($saisie['options']['nom']) and $nom = $saisie['options']['nom']) {
@@ -116,17 +120,17 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
  */
 function formulaires_editer_reservation_formulaire_configuration_verifier_dist($id_reservation_formulaire_configuration = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
 	include_spip('inc/saisies');
-	$erreurs = array();
-
-	$erreurs = formulaires_editer_objet_verifier('reservation_formulaire_configuration', $id_reservation_formulaire_configuration, array('titre', 'type'));
-
 	$definitions_saisies = reservations_formulaires_definition_saisies(_request('type'), $valeurs);
+
+
 
 	$saisies_verifier= saisies_verifier($definitions_saisies);
 
 	$saisies = saisies_lister_par_nom($definitions_saisies);
-	
-	print_r(saisies);
+
+	/*print '<pre>';
+	print_r($definitions_saisies[0]);
+	print '</pre>';*/
 
 	$configuration = array();
 
@@ -136,8 +140,15 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 			$configuration[$nom] = _request($nom);
 		}
 	}
+	if (count($configuration) > 100) {
+		set_request('configuration', json_encode($configuration));
+	}
 
-	set_request('configuration', json_encode($configuration));
+	$erreurs = array();
+
+	$erreurs = formulaires_editer_objet_verifier('reservation_formulaire_configuration',
+			$id_reservation_formulaire_configuration,
+			array('titre', 'type', 'configuration'));
 
 	return array_merge($erreurs, $saisies_verifier);
 }

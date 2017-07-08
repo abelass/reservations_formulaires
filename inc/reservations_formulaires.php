@@ -33,14 +33,8 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
 				$configuration = $confs($valeurs);
 				if ($type == $nom and isset($configuration['saisies'])) {
-					$configurations[] = array(
-						'saisie' => 'fieldset',
-						'options' => array(
-							'nom' => 'configurations',
-							'label' => _T('reservation_formulaire_configuration:champ_configuration_label')
-						),
-						'saisies' => $configuration['saisies']
-					);
+					$configurations = $configuration['saisies'];
+
 				}
 				// Lister les configurations disponibles.
 				if (isset($configuration['nom']))
@@ -49,18 +43,29 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 		}
 	}
 
-	$defaut = array(
-		'saisies' => array(
-			'saisie' => 'selection',
+	$saisies= array(
+		array(
+			'saisie' => 'fieldset',
 			'options' => array(
-				'nom' => 'type',
-				'label' => _T('reservation_formulaire_configuration:champ_type_label'),
-				'datas' => $configurations_noms
+				'nom' => 'configurations',
+				'label' => _T('reservation_formulaire_configuration:champ_configuration_label')
+			),
+			'saisies' => array(
+				array(
+				'saisie' => 'selection',
+				'options' => array(
+					'nom' => 'type',
+					'label' => _T('reservation_formulaire_configuration:champ_type_label'),
+					'datas' => $configurations_noms
+				),
+					),
+				$configurations,
 			)
-		)
+),
+
 	);
 
-	$saisies = array_merge($defaut, $configurations);
+	//$saisies = array_merge($defaut, $configurations);
 
 	return $saisies;
 }
