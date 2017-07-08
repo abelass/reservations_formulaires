@@ -121,6 +121,10 @@ function reservations_formulaires_formulaire_charger($flux) {
 
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
+		if (isset($contexte['id_reservation_formulaire'])) {
+			$flux['data']['_hidden'] .= '<input type="hidden" name="id_reservation_formulaire" value="' . $contexte['id_reservation_formulaire'] . '" />';
+		}
+
 		$configurations = array();
 		if (isset($contexte['configurations'])) {
 			$configurations = $contexte['configurations'];
@@ -131,7 +135,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 				'spip_reservation_formulaire_configurations_liens',
 				'spip_reservation_formulaire_configurations',
 				'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
-			
+
 			while ($data = sql_fetch(sql)) {
 				$type = $data['type'];
 				$configurations[$type] = json_decode($data['configuration'], true);
@@ -142,9 +146,9 @@ function reservations_formulaires_formulaire_charger($flux) {
 				$contexte = $charger($type, $contexte, $configuration);
 			}
 		}
-		
+
 		$flux['data'] = $contexte;
-		
+
 	}
 	return $flux;
 }

@@ -6,7 +6,7 @@
 	<BOUCLE_configurations(RESERVATION_FORMULAIRE_CONFIGURATIONS) {id_reservation_formulaire}>
 	#SET{configuration,#CONFIGURATION|json_decode{1}}
 	[(#GET{configuration}|table_valeur{traitement}|=={options}|oui)
-		#SET{configurations, 
+		#SET{configurations,
 			#GET{configurations}|array_merge{#ARRAY{
 					#TYPE, #GET{configuration}
 				}
@@ -14,8 +14,11 @@
 		}
 	]
 	</BOUCLE_configurations>
-	#SET{options, #ENV**{option,#ARRAY{}}|array_merge{#ARRAY{
-		'configurations',#GET{configurations}
+	#SET{options, #ENV**{option,#ARRAY{}}
+		|array_merge{
+			#ARRAY{
+				configurations,#GET{configurations}
+				id_reservation_formulaire, #ID_RESERVATION_FORMULAIRE
 			}
 		}
 	}
