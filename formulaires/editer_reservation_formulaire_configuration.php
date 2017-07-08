@@ -122,11 +122,9 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 
 	$saisies_verifier= saisies_verifier($definitions_saisies);
 
-	$saisies = saisies_lister_par_nom($definitions_saisies);
+	$saisies = saisies_lister_par_nom($definitions_saisies[0]['saisies']);
 
-	/*print '<pre>';
-	print_r($definitions_saisies[0]);
-	print '</pre>';*/
+	unset($saisies['type']);
 
 	$configuration = array();
 
@@ -136,7 +134,7 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 			$configuration[$nom] = _request($nom);
 		}
 	}
-	if (count($configuration) > 100) {
+	if (count($configuration) > 0) {
 		set_request('configuration', json_encode($configuration));
 	}
 

@@ -59,7 +59,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 					'datas' => $configurations_noms
 				),
 					),
-				$configurations,
+				'saisies' => $configurations,
 			)
 ),
 
