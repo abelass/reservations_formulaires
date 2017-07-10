@@ -28,13 +28,13 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 	if (is_array($configurations_defs)) {
 
 		foreach ($configurations_defs as $fichier => $chemin) {
-			list($nom, $extension) = explode('.', $fichier);;
+			list($nom, $extension) = explode('.', $fichier);
+			;
 			// Charger la définition des champs
 			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
 				$configuration = $confs($valeurs);
 				if ($type == $nom and isset($configuration['saisies'])) {
 					$configurations = $configuration['saisies'];
-
 				}
 				// Lister les configurations disponibles.
 				if (isset($configuration['nom']))
@@ -43,7 +43,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 		}
 	}
 
-	$saisies= array(
+	$saisies = array(
 		array(
 			'saisie' => 'fieldset',
 			'options' => array(
@@ -52,21 +52,19 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 			),
 			'saisies' => array(
 				array(
-				'saisie' => 'selection',
-				'options' => array(
-					'nom' => 'type',
-					'label' => _T('reservation_formulaire_configuration:champ_type_label'),
-					'datas' => $configurations_noms,
-					'valeur_forcee' => $type,
+					'saisie' => 'selection',
+					'options' => array(
+						'nom' => 'type',
+						'label' => _T('reservation_formulaire_configuration:champ_type_label'),
+						'datas' => $configurations_noms,
+						'valeur_forcee' => $type
+					)
 				),
-					),
-				'saisies' => $configurations,
+				'saisies' => $configurations
 			)
-),
+		)
 
 	);
-
-	//$saisies = array_merge($defaut, $configurations);
 
 	return $saisies;
 }
