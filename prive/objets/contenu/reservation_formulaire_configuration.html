@@ -4,15 +4,24 @@
 	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
 </div>]
 
+#SET{configuration,#TYPE|reservations_formulaires_traduire_configuration{#CONFIGURATION}}
+
+[(#GET{configuration}|serialize)]
+
 [<div class="champ contenu_descriptif[ (#DESCRIPTIF*|strlen|?{'',vide})]">
 	<label><:reservation_formulaire_configuration:champ_descriptif_label:> : </label>
 	<span dir="#LANG_DIR" class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</span>
 </div>]
 
-[<div class="champ contenu_configuration[ (#CONFIGURATION*|strlen|?{'',vide})]">
+<div class="champ contenu_configuration[ (#CONFIGURATION*|strlen|?{'',vide})]">
 	<label><:reservation_formulaire_configuration:champ_configuration_label:> : </label>
-	<span dir="#LANG_DIR" class="#EDIT{configuration} configuration">(#CONFIGURATION)</span>
-</div>]
+		<BOUCLE_configuration(DATA) {source tableau, #GET{configuration}}>
+	<div>
+		<span class="label">#CLE : </span> <span class="value">#VALUE</span>
+	</div>
+	</BOUCLE_configuration>
+
+</div>
 
 [<div class="champ contenu_type[ (#TYPE*|strlen|?{'',vide})]">
 	<label><:reservation_formulaire_configuration:champ_type_label:> : </label>

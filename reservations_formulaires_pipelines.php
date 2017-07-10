@@ -128,7 +128,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 		$configurations = array();
 		if (isset($contexte['configurations'])) {
 			$configurations = $contexte['configurations'];
-			$type = $contexte['type'];
+			$type = $configurations['type'];
 		}
 		elseif(isset($contexte['id_reservation_formulaire'])) {
 			$sql = sql_select('type,configuration',

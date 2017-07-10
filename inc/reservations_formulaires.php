@@ -19,29 +19,9 @@
  *
  * @return array défintion en format du plugin saisies.
  */
-function reservations_formulaires_definition_saisies($type, $valeurs) {
+function reservations_formulaires_definition_saisies($type, $valeurs = array()) {
 
-	// Chercher les fichiers promotions
-	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
-	$configurations_noms = array();
-	$configurations = array();
-	if (is_array($configurations_defs)) {
-
-		foreach ($configurations_defs as $fichier => $chemin) {
-			list($nom, $extension) = explode('.', $fichier);
-			;
-			// Charger la définition des champs
-			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
-				$configuration = $confs($valeurs);
-				if ($type == $nom and isset($configuration['saisies'])) {
-					$configurations = $configuration['saisies'];
-				}
-				// Lister les configurations disponibles.
-				if (isset($configuration['nom']))
-					$configurations_noms[$nom] = $configuration['nom'];
-			}
-		}
-	}
+	$configurations = reservations_formulaires_charger_definitions($type, $valeurs) ;
 
 	$saisies = array(
 		array(
@@ -56,15 +36,44 @@ function reservations_formulaires_definition_saisies($type, $valeurs) {
 					'options' => array(
 						'nom' => 'type',
 						'label' => _T('reservation_formulaire_configuration:champ_type_label'),
-						'datas' => $configurations_noms,
+						'datas' => $configurations['noms'],
 						'valeur_forcee' => $type
 					)
 				),
-				'saisies' => $configurations
+				'saisies' => $configurations['saisies'],
 			)
 		)
 
 	);
 
 	return $saisies;
+}
+
+function reservations_formulaires_charger_definitions($type, $valeurs = array(), $filtrer = '') {
+	// Chercher les fichiers promotions
+	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
+	$configurations = array();
+	if (is_array($configurations_defs)) {
+
+		foreach ($configurations_defs as $fichier => $chemin) {
+			list($nom, $extension) = explode('.', $fichier);
+
+			// Charger la définition des champs
+			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
+				$configuration = $confs($valeurs);
+				if ($type == $nom and isset($configuration['saisies'])) {
+					$configurations['saisies'] = $configuration['saisies'];
+				}
+				// Lister les configurations disponibles.
+				if (isset($configuration['nom']))
+					$configurations['noms'][$nom] = $configuration['nom'];
+			}
+		}
+	}
+
+	if ($filtrer and isset($configurations[$filtrer])) {
+		$configurations = $configurations[$filtrer];
+	}
+
+	return $configurations;
 }
