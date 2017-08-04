@@ -13,6 +13,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
 	'champ_configuration_label' => 'Configuration',
+	'champ_configurations_manquantes' => 'Aucune définition de configuration disponible, veuillez activer un plugin contenant une telle définition !',
 	'champ_descriptif_label' => 'Déscriptif',
 	'champ_titre_label' => 'Titre',
 	'champ_type_label' => 'Type de configuration',

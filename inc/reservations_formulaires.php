@@ -23,6 +23,20 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 
 	$configurations = reservations_formulaires_charger_definitions($type, $valeurs) ;
 
+	if (count($configurations) > 0) {
+		$configurations_saisies = $configurations['saisies'];
+	}
+	else {
+		$configurations_saisies = array (
+			'saisie' => 'explication',
+			'options' => array(
+				'nom' => 'configurations_manquantes',
+				'texte' => _T('reservation_formulaire_configuration:champ_configurations_manquantes')
+			)
+		);
+	}
+
+
 	$saisies = array(
 		array(
 			'saisie' => 'fieldset',
@@ -40,7 +54,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 						'valeur_forcee' => $type
 					)
 				),
-				'saisies' => $configurations['saisies'],
+				'saisies' => $configurations_saisies,
 			)
 		)
 
@@ -52,6 +66,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 function reservations_formulaires_charger_definitions($type, $valeurs = array(), $filtrer = '') {
 	// Chercher les fichiers promotions
 	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
+
 	$configurations = array();
 	if (is_array($configurations_defs)) {
 
