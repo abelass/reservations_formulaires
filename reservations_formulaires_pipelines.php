@@ -132,9 +132,9 @@ function reservations_formulaires_formulaire_charger($flux) {
 		}
 		elseif(isset($contexte['id_reservation_formulaire'])) {
 			$sql = sql_select('type,configuration',
-				'spip_reservation_formulaire_configurations_liens',
-				'spip_reservation_formulaire_configurations',
-				'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
+					'spip_reservation_formulaire_configurations_liens',
+					'spip_reservation_formulaire_configurations',
+					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
 
 			while ($data = sql_fetch(sql)) {
 				$type = $data['type'];
@@ -163,20 +163,36 @@ function reservations_formulaires_formulaire_charger($flux) {
 function reservations_formulaires_formulaire_verifier($flux) {
 	$form = $flux['args']['form'];
 	$forms = array (
-		'editer_article',
-		'editer_evenement'
+		'reservation',
+		'editer_reservationt'
 	);
 	$contexte = $flux['data'];
 
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
-		$action_cloture = $contexte['action_cloture'];
-		$id_evenement = isset($contexte['id_evenement']) ? $contexte['id_evenement'] : '0';
-		if ($form == $forms[1] and (! $action_cloture or $action_cloture == 0) and $form == 'editer_evenement' and intval($contexte['id_parent'])) {
-			$action_cloture = sql_getfetsel('action_cloture', 'spip_articles', 'id_article=' . $contexte['id_parent']);
+
+		$configurations = array();
+		$id_reservation_formulaire = _request('id_reservation_formulaire');
+
+		if($id_reservation_formulaire) {
+			$sql = sql_select('type,configuration',
+					'spip_reservation_formulaire_configurations_liens',
+					'spip_reservation_formulaire_configurations',
+					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $id_reservation_formulaire);
+
+			while ($data = sql_fetch(sql)) {
+				$type = $data['type'];
+				$configurations[$type] = json_decode($data['configuration'], true);
+			}
 		}
-		if ($action_cloture)
-			$flux['data']['action_cloture'] = $action_cloture;
+
+
+			if ($charger = charger_fonction('verifier', 'formulaire_configurations/' .$type, true) && $type) {
+				$flux['data'] = $charger($type, $contexte, $configurations);
+
+			}
+
+		print_r($flux['data']);
 	}
 	return $flux;
 }

@@ -1,3 +1,5 @@
+
+
 <BOUCLE_formulaires(RESERVATION_FORMULAIRES) {objet} {id_objet}>
 #SET{id_evenement, #ARRAY}
 #SET{id_article, #ARRAY}
@@ -14,14 +16,14 @@
 		}
 	]
 	</BOUCLE_configurations>
-	#SET{options, #ENV**{option,#ARRAY{}}
-		|array_merge{
+	#SET{options, #ENV{option,#ARRAY{}}|array_merge{
 			#ARRAY{
 				configurations,#GET{configurations},
 				id_reservation_formulaire, #ID_RESERVATION_FORMULAIRE
 			}
 		}
 	}
+
 	<INCLURE{fond=modeles/reservation,env, options=#GET{options}} />
 </BOUCLE_formulaires>
 
