@@ -121,8 +121,9 @@ function reservations_formulaires_formulaire_charger($flux) {
 
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
+
 		if (isset($contexte['id_reservation_formulaire'])) {
-			$flux['data']['_hidden'] .= '<input type="hidden" name="id_reservation_formulaire" value="' . $contexte['id_reservation_formulaire'] . '" />';
+			$contexte['_hidden'] .= '<input type="hidden" name="id_reservation_formulaire" value="' . $contexte['id_reservation_formulaire'] . '" />';
 		}
 
 		$configurations = array();
@@ -132,8 +133,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 		}
 		elseif(isset($contexte['id_reservation_formulaire'])) {
 			$sql = sql_select('type,configuration',
-					'spip_reservation_formulaire_configurations_liens',
-					'spip_reservation_formulaire_configurations',
+					'spip_reservation_formulaire_configurations_liens,spip_reservation_formulaire_configurations',
 					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
 
 			while ($data = sql_fetch(sql)) {
@@ -141,6 +141,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 				$configurations[$type] = json_decode($data['configuration'], true);
 			}
 		}
+
 		foreach ($configurations AS $type => $configuration) {
 			if ($charger = charger_fonction('charger', 'formulaire_configurations/' .$type, true)) {
 				$contexte = $charger($type, $contexte, $configuration);
@@ -148,7 +149,6 @@ function reservations_formulaires_formulaire_charger($flux) {
 		}
 
 		$flux['data'] = $contexte;
-
 	}
 	return $flux;
 }
@@ -166,33 +166,27 @@ function reservations_formulaires_formulaire_verifier($flux) {
 		'reservation',
 		'editer_reservationt'
 	);
-	$contexte = $flux['data'];
+	$erreurs = $flux['data'];
 
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
-
-		$configurations = array();
 		$id_reservation_formulaire = _request('id_reservation_formulaire');
 
 		if($id_reservation_formulaire) {
-			$sql = sql_select('type,configuration',
-					'spip_reservation_formulaire_configurations_liens',
-					'spip_reservation_formulaire_configurations',
+			$sql = sql_select(
+					'type,configuration',
+					'spip_reservation_formulaire_configurations_liens,spip_reservation_formulaire_configurations',
 					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $id_reservation_formulaire);
 
-			while ($data = sql_fetch(sql)) {
+			while ($data = sql_fetch($sql)) {
 				$type = $data['type'];
-				$configurations[$type] = json_decode($data['configuration'], true);
+				$configurations = json_decode($data['configuration'], true);
+				if ($charger = charger_fonction('verifier', 'formulaire_configurations/' .$type, true)) {
+					$erreurs= $charger($type, $erreurs, $configurations);
+				}
 			}
 		}
-
-
-			if ($charger = charger_fonction('verifier', 'formulaire_configurations/' .$type, true) && $type) {
-				$flux['data'] = $charger($type, $contexte, $configurations);
-
-			}
-
-		print_r($flux['data']);
+		$flux['data'] = $erreurs;
 	}
 	return $flux;
 }
