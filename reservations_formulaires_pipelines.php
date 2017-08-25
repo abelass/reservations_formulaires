@@ -113,7 +113,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 	$form = $flux['args']['form'];
 	$forms = array (
 		'reservation',
-		'editer_reservationt'
+		'reservation_edit'
 	);
 	$contexte = $flux['data'];
 
@@ -162,7 +162,7 @@ function reservations_formulaires_formulaire_verifier($flux) {
 	$form = $flux['args']['form'];
 	$forms = array (
 		'reservation',
-		'editer_reservationt'
+		'reservation_edit'
 	);
 	$erreurs = $flux['data'];
 
