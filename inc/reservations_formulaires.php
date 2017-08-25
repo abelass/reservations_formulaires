@@ -24,7 +24,19 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 	$configurations = reservations_formulaires_charger_definitions($type, $valeurs) ;
 
 	if (count($configurations) > 0) {
-		$configurations_saisies = $configurations['saisies'];
+		if (isset($configurations['saisies'])) {
+			$configurations_saisies = $configurations['saisies'];
+		}
+		else {
+			$configurations_saisies = array (
+				'saisie' => 'hidden',
+				'options' => array(
+					'nom' => 'configurations_choix',
+					'texte' => _T('reservation_formulaire_configuration:champ_configurations_manquantes'),
+					'defaut' => 'non',
+				)
+			);
+		}
 	}
 	else {
 		$configurations_saisies = array (
@@ -54,10 +66,9 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 						'valeur_forcee' => $type
 					)
 				),
-				'saisies' => $configurations_saisies,
-			)
+				$saisies = $configurations_saisies,
+			),
 		)
-
 	);
 
 	return $saisies;
