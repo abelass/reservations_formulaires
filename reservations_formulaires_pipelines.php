@@ -113,10 +113,9 @@ function reservations_formulaires_formulaire_charger($flux) {
 	$form = $flux['args']['form'];
 	$forms = array (
 		'reservation',
-		'reservation_edit'
+		'editer_reservation'
 	);
 	$contexte = $flux['data'];
-
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
 
@@ -134,19 +133,20 @@ function reservations_formulaires_formulaire_charger($flux) {
 					'spip_reservation_formulaire_configurations_liens,spip_reservation_formulaire_configurations',
 					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
 
-			while ($data = sql_fetch(sql)) {
+			while ($data = sql_fetch($sql)) {
 				$type = $data['type'];
 				$configurations[$type] = json_decode($data['configuration'], true);
 			}
 		}
-
 		foreach ($configurations AS $type => $configuration) {
+
 			if ($charger = charger_fonction('charger', 'formulaire_configurations/' .$type, true)) {
 				$contexte = $charger($type, $contexte, $configuration);
 			}
 		}
 
 		$flux['data'] = $contexte;
+
 	}
 	return $flux;
 }
@@ -162,7 +162,7 @@ function reservations_formulaires_formulaire_verifier($flux) {
 	$form = $flux['args']['form'];
 	$forms = array (
 		'reservation',
-		'reservation_edit'
+		'editer_reservation'
 	);
 	$erreurs = $flux['data'];
 
