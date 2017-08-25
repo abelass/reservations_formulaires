@@ -64,7 +64,6 @@ function reservations_formulaires_affiche_milieu($flux) {
 	return $flux;
 }
 
-
 /**
  * Ajout de liste sur la vue d'un auteur
  *
@@ -81,7 +80,6 @@ function reservations_formulaires_affiche_auteurs_interventions($flux) {
 	}
 	return $flux;
 }
-
 
 /**
  * Optimiser la base de données

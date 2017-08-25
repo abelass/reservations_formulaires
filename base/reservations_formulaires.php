@@ -13,7 +13,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
-
 /**
  * Déclaration des alias de tables et filtres automatiques de champs
  *
@@ -30,7 +29,6 @@ function reservations_formulaires_declarer_tables_interfaces($interfaces) {
 
 	return $interfaces;
 }
-
 
 /**
  * Déclaration des objets éditoriaux
@@ -114,7 +112,6 @@ function reservations_formulaires_declarer_tables_objets_sql($tables) {
 
 	return $tables;
 }
-
 
 /**
  * Déclaration des tables secondaires (liaisons)
