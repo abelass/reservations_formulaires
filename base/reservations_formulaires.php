@@ -106,9 +106,11 @@ function reservations_formulaires_declarer_tables_objets_sql($tables) {
 		'champs_versionnes' => array('titre', 'descriptif', 'configuration', 'type'),
 		'rechercher_champs' => array("titre" => 10, "descriptif" => 8),
 		'tables_jointures'  => array('spip_reservation_formulaire_configurations_liens'),
-
-
 	);
+
+	// Champs extras pour spip_reservations.
+	$tables['spip_reservations']['field']['id_reservation_formulaire'] = 'bigint(21) DEFAULT "0" NOT NULL';
+	$tables['spip_reservations']['champs_editables'][] = 'id_reservation_formulaire';
 
 	return $tables;
 }
@@ -150,18 +152,4 @@ function reservations_formulaires_declarer_tables_auxiliaires($tables) {
 	);
 
 	return $tables;
-}
-
-/**
- * Déclaration des tables principales
- *
- * @pipeline declarer_tables_principales
- * @param array $tables
- *     Description des tables
- * @return array
- *     Description complétée des tables
- */
-function reservations_formulaires_declarer_tables_principales($tables_principales) {
-	$tables_principales['spip_reservations']['field']['id_reservation_formulaire'] = 'bigint(21) DEFAULT "0" NOT NULL';
-	return $tables_principales;
 }

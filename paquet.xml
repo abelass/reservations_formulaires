@@ -6,7 +6,7 @@
 	compatibilite="[3.1.6;3.2.*]"
 	logo="prive/themes/spip/images/reservations_formulaires-64.png"
 	documentation=""
-	schema="1.0.1"
+	schema="1.0.2"
 >
 
 
@@ -45,7 +45,6 @@
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservations_formulaires.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/reservations_formulaires.php" />
 	<pipeline nom="declarer_tables_auxiliaires" inclure="base/reservations_formulaires.php" />
-	<pipeline nom="declarer_tables_principales" inclure="base/reservations_formulaires.php" />
 
 	<pipeline nom="affiche_milieu" inclure="reservations_formulaires_pipelines.php" />
 	<pipeline nom="affiche_auteurs_interventions" inclure="reservations_formulaires_pipelines.php" />
