@@ -118,6 +118,9 @@ function reservations_formulaires_formulaire_charger($flux) {
 	$contexte = $flux['data'];
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
+		print '<pre>';
+		print_r($flux['data']['champs_extras_auteurs']);
+		print '</pre>';
 
 		if (isset($contexte['id_reservation_formulaire'])) {
 			$contexte['_hidden'] .= '<input type="hidden" name="id_reservation_formulaire" value="' . $contexte['id_reservation_formulaire'] . '" />';
@@ -129,24 +132,32 @@ function reservations_formulaires_formulaire_charger($flux) {
 			$type = $configurations['type'];
 		}
 		elseif(isset($contexte['id_reservation_formulaire'])) {
-			$sql = sql_select('type,configuration',
-					'spip_reservation_formulaire_configurations_liens,spip_reservation_formulaire_configurations',
-					'objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
+			$sql = sql_select('type,configuration,titre',
+					'spip_reservation_formulaire_configurations_liens AS liens, spip_reservation_formulaire_configurations AS confs',
+					'liens.id_reservation_formulaire_configuration = confs.id_reservation_formulaire_configuration AND objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
 
 			while ($data = sql_fetch($sql)) {
 				$type = $data['type'];
-				$configurations[$type] = json_decode($data['configuration'], true);
+				print '<pre>';
+				print_r($data);
+				print '</pre>';
+				$configurations[$type] = $contexte[$type] = json_decode($data['configuration'], true);
 			}
 		}
-		foreach ($configurations AS $type => $configuration) {
 
+
+		$flux['data']['contexte']['formulaire_configurations'] = $configurations;
+
+		foreach ($configurations AS $type => $configuration) {
 			if ($charger = charger_fonction('charger', 'formulaire_configurations/' .$type, true)) {
 				$contexte = $charger($type, $contexte, $configuration);
 			}
 		}
 
 		$flux['data'] = $contexte;
-
+print '<pre>';
+print_r($flux['data']['champs_extras_auteurs']);
+print '</pre>';
 	}
 	return $flux;
 }
