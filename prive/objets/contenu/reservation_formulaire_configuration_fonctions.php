@@ -6,9 +6,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 include_spip('inc/reservations_formulaires');
 include_spip('inc/saisies');
 
-/*
- * no utilisé, verifier sens
- * function reservations_formulaires_traduire_configuration($type, $configuration) {
+function reservations_formulaires_traduire_configuration($type, $configuration) {
 
 	$saisies = reservations_formulaires_charger_definitions($type);
 
@@ -39,4 +37,4 @@ include_spip('inc/saisies');
 	}
 
 	return $conf;
-}*/
+}
