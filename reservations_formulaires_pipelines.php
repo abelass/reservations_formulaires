@@ -155,9 +155,6 @@ function reservations_formulaires_formulaire_charger($flux) {
 		}
 
 		$flux['data'] = $contexte;
-print '<pre>';
-print_r($flux['data']['champs_extras_auteurs']);
-print '</pre>';
 	}
 	return $flux;
 }
