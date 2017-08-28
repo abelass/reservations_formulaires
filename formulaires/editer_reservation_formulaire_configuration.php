@@ -118,8 +118,6 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 	include_spip('inc/saisies');
 	$definitions_saisies = reservations_formulaires_definition_saisies(_request('type'), $valeurs);
 
-
-
 	$saisies_verifier= saisies_verifier($definitions_saisies);
 
 	$saisies = saisies_lister_par_nom($definitions_saisies[0]['saisies']);
@@ -128,6 +126,7 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 
 	$configuration = array();
 
+	// Quand le type de configuration est choisit.
 	if (_request('configurations_choix') != 'non') {
 		foreach ($saisies AS $saisie) {
 			if($saisie['saisie'] != 'fieldset')	{
@@ -144,8 +143,8 @@ function formulaires_editer_reservation_formulaire_configuration_verifier_dist($
 	$erreurs = array();
 
 	$erreurs = formulaires_editer_objet_verifier('reservation_formulaire_configuration',
-			$id_reservation_formulaire_configuration,
-			array('titre', 'type', 'configuration'));
+		$id_reservation_formulaire_configuration,
+		array('titre', 'type', 'configuration'));
 
 	return array_merge($erreurs, $saisies_verifier);
 }
