@@ -118,10 +118,6 @@ function reservations_formulaires_formulaire_charger($flux) {
 	$contexte = $flux['data'];
 	// Charger les valeurs par défaut
 	if (in_array($form, $forms)) {
-		print '<pre>';
-		print_r($flux['data']['champs_extras_auteurs']);
-		print '</pre>';
-
 		if (isset($contexte['id_reservation_formulaire'])) {
 			$contexte['_hidden'] .= '<input type="hidden" name="id_reservation_formulaire" value="' . $contexte['id_reservation_formulaire'] . '" />';
 		}
@@ -138,9 +134,6 @@ function reservations_formulaires_formulaire_charger($flux) {
 
 			while ($data = sql_fetch($sql)) {
 				$type = $data['type'];
-				print '<pre>';
-				print_r($data);
-				print '</pre>';
 				$configurations[$type] = $contexte[$type] = json_decode($data['configuration'], true);
 			}
 		}
