@@ -21,14 +21,60 @@
  */
 function formulaire_configurations_rf_limiter_dist($valeurs) {
 
-	return array (
+	$objets = array(
+		'rubrique' => array(
+			'saisie' => 'selecteur_rubrique'
+		),
+		'article' => array(
+			'saisie' => 'selecteur_article'
+		),
+		'evenement' => array(
+			'saisie' => 'input',
+		)
+	);
+
+
+	$liste_objets =lister_tables_objets_sql();
+	$choix_objets = array();
+	foreach(array_keys($objets) AS $objet) {
+		$table_objet = _T($liste_objets['spip_' . $objet . 's']['texte_objets']);
+		$choix_objets[$objet] = _T($liste_objets['spip_' . $objet . 's']['texte_objets']);
+	}
+
+	$saisies = array (
 		'nom' => _T('reservation_formulaire:nom_formulaire_configuration_specifier_evenements'),
 		'saisies' => array(
-			'saisie' => 'selecteur_rubrique',
+			'saisie' => 'fieldset',
 			'options' => array(
-				'nom' => 'limiter_rubrique',
-				'label' => _T('reservation_formulaire:champ_limiter_rubrique_label'),
+				'nom' => 'specifique',
+				'label' => _T($desc['texte_objets'])
+			),
+			'saisies' => array (
+				array(
+					'saisie' => 'selection',
+					'options' => array(
+						'nom' => 'choix_objet',
+						'label' => _T('reservation_formulaire:champ_choix_objet_label'),
+						'datas' => $choix_objets,
+					),
+				),
 			),
 		),
 	);
+
+	foreach($objets AS $objet => $donnees) {
+		$saisies['saisies']['saisies'][] =
+			array(
+				'saisie' => $donnees['saisie'],
+				'options' => array(
+					'nom' => 'limiter_' . $objet,
+					'label' => _T('reservation_formulaire:champ_selection_label'),
+					'afficher_si' => '@choix_objet@ == "' . $objet . '"',
+				),
+		);
+	}
+
+	$configuration = isset($saisies[_request('choix_objet')]) ? $saisies[_request('choix_objet')] : '';
+
+	return $saisies;
 }
