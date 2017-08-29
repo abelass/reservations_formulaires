@@ -9,10 +9,19 @@
 	<span dir="#LANG_DIR" class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</span>
 </div>]
 
-[<div class="champ contenu_configuration[ (#CONFIGURATION*|strlen|?{'',vide})]">
-	<label><:reservation_formulaire_configuration:champ_configuration_label:> : </label>
-	<span dir="#LANG_DIR" class="#EDIT{configuration} configuration">(#CONFIGURATION)</span>
-</div>]
+
+[(#CHEMIN{formulaire_configurations/affichage_#TYPE.html}|?{
+	<div class="champ contenu_configuration[ (#CONFIGURATION*|strlen|?{'',vide})]">
+		<label><:reservation_formulaire_configuration:champ_configuration_label:> : </label>
+		[(#INCLURE{fond=formulaire_configurations/affichage_#TYPE,configuration=#CONFIGURATION|json_decode{true},env})]
+	</div>
+	,
+	[<div class="champ contenu_configuration[ (#CONFIGURATION*|strlen|?{'',vide})]">
+		<label><:reservation_formulaire_configuration:champ_configuration_label:> : </label>
+		<span dir="#LANG_DIR" class="configuration">(#CONFIGURATION)</span>
+	</div>]
+})]
+
 
 [<div class="champ contenu_type[ (#TYPE*|strlen|?{'',vide})]">
 	<label><:reservation_formulaire_configuration:champ_type_label:> : </label>
@@ -20,3 +29,5 @@
 </div>]
 
 </BOUCLE_reservation_formulaire_configuration>
+
+formulaire_configurations/affichage_rce_reservations
