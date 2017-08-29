@@ -13,6 +13,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
 	'champ_descriptif_label' => 'Déscriptif',
+	'champ_limiter_rubrique_label' => 'Rubrique',
 	'champ_titre_label' => 'Titre',
 	'confirmer_supprimer_reservation_formulaire' => 'Confirmez-vous la suppression de cet formulaire de réservation ?',
 
@@ -23,6 +24,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_aucun_reservation_formulaire' => 'Aucun formulaire de réservation',
 	'info_nb_reservation_formulaires' => '@nb@ formulaires de réservation',
 	'info_reservation_formulaires_auteur' => 'Les formulaires de réservation de cet auteur',
+
+	// N
+	'nom_formulaire_configuration_specifier_evenements' => 'Limiter les événements à afficher',
 
 	// R
 	'retirer_lien_reservation_formulaire' => 'Retirer ce formulaire de réservation',
