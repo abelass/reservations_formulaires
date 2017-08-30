@@ -31,6 +31,7 @@
 	<pipeline nom="formulaire_charger" inclure="reservations_formulaires_pipelines.php" />
 	<pipeline nom="formulaire_verifier" inclure="reservations_formulaires_pipelines.php" />
 	<pipeline nom="reservation_evenement_objets_navigation" inclure="reservations_formulaires_pipelines.php" />
+	<pipeline nom="reservation_evenement_objets_configuration" inclure="reservations_formulaires_pipelines.php" />
 
 	<menu nom="reservation_formulaires" titre="reservation_formulaire:titre_reservation_formulaires" parent="menu_edition" icone="images/reservation_formulaire-16.png" action="reservation_formulaires" />
 </paquet>

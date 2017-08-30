@@ -197,7 +197,8 @@ function reservations_formulaires_formulaire_verifier($flux) {
  *
  * @param array $flux
  *        	Données du pipeline
- * @return array Données du pipeline
+ * @return array
+ *          Données du pipeline
  */
 function reservations_formulaires_reservation_evenement_objets_navigation($flux) {
 
@@ -205,6 +206,23 @@ function reservations_formulaires_reservation_evenement_objets_navigation($flux)
 		'label' => _T('reservations_formulaires:reservations_formulaires_titre'),
 		'objets' => array('reservation_formulaires', 'reservation_formulaire')
 	);
+
+	return $flux;
+}
+
+/**
+ * Ajouter les configurations dans celle de réservation événements.
+ *
+ * @pipeline reservation_evenement_objets_configuration
+ *
+ * @param array $flux
+ *        	Données du pipeline
+ * @return array Données du pipeline
+ */
+function reservations_formulaires_reservation_evenement_objets_configuration($flux) {
+	$flux['data']['reservations_formulaires'] = array(
+			'label' => _T('reservations_formulaires:reservations_formulaires_titre')
+		);
 
 	return $flux;
 }
