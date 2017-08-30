@@ -22,7 +22,6 @@
 function reservations_formulaires_definition_saisies($type, $valeurs = array()) {
 
 	$configurations = reservations_formulaires_charger_definitions($type, $valeurs) ;
-
 	if (count($configurations) > 0) {
 		if (isset($configurations['saisies'])) {
 			$configurations_saisies = $configurations['saisies'];
@@ -75,7 +74,7 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 }
 
 function reservations_formulaires_charger_definitions($type, $valeurs = array(), $filtrer = '') {
-	// Chercher les fichiers promotions
+	// Chercher les fichiers des configurations.
 	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
 
 	$configurations = array();

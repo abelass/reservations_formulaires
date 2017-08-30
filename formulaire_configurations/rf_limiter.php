@@ -33,7 +33,6 @@ function formulaire_configurations_rf_limiter_dist($valeurs) {
 		)
 	);
 
-
 	$liste_objets =lister_tables_objets_sql();
 	$choix_objets = array();
 	foreach(array_keys($objets) AS $objet) {
@@ -70,6 +69,7 @@ function formulaire_configurations_rf_limiter_dist($valeurs) {
 					'nom' => 'limiter_' . $objet,
 					'label' => _T('reservation_formulaire:champ_selection_label'),
 					'afficher_si' => '@choix_objet@ == "' . $objet . '"',
+					'multiple' => 'oui',
 				),
 		);
 	}
