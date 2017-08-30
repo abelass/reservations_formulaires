@@ -47,7 +47,6 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 		);
 	}
 
-
 	$saisies = array(
 		array(
 			'saisie' => 'fieldset',
