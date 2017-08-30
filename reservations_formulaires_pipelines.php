@@ -189,3 +189,22 @@ function reservations_formulaires_formulaire_verifier($flux) {
 	}
 	return $flux;
 }
+
+/**
+ * Ajouter une entré au menu de navigation de résrvation événement.
+ *
+ * @pipeline reservation_evenement_objets_navigation
+ *
+ * @param array $flux
+ *        	Données du pipeline
+ * @return array Données du pipeline
+ */
+function reservations_formulaires_reservation_evenement_objets_navigation($flux) {
+
+	$flux['data']['reservation_formulaire'] = array(
+		'label' => _T('reservations_formulaires:reservations_formulaires_titre'),
+		'objets' => array('reservation_formulaires', 'reservation_formulaire')
+	);
+
+	return $flux;
+}
