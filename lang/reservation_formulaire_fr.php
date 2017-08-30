@@ -12,9 +12,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'ajouter_lien_reservation_formulaire' => 'Ajouter ce formulaire de réservation',
 
 	// C
+	'champ_choix_objet_label' => 'Objet :',
 	'champ_descriptif_label' => 'Déscriptif',
 	'champ_limiter_rubrique_label' => 'Rubrique',
-	'champ_selection_label' => 'Choix',
+	'champ_selection_label' => 'Choix :',
 	'champ_titre_label' => 'Titre',
 	'confirmer_supprimer_reservation_formulaire' => 'Confirmez-vous la suppression de cet formulaire de réservation ?',
 

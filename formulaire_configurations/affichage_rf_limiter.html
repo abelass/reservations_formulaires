@@ -1,0 +1,18 @@
+<B_affichage>
+<ul class="liste configurations">
+<BOUCLE_affichage(DATA) {source tableau,#ENV{configuration}}>
+	[(#CLE|match{limiter_}|?{
+		[<li>
+			<span class="champ-label"><:reservation_formulaire:champ_selection_label:></span>
+			<span class="champ-valeur">(#CLE
+				|in_array{#LISTE{limiter_rubrique,limiter_article}}
+				|?{#VALEUR|picker_selected{#ENV{configuration}
+				|table_valeur{choix_objet}}
+				|implode{','},#VALEUR})</span>
+		</li>]
+		,
+			[<li><span class="champ-label">[(#VAL{reservation_formulaire:champ_#CLE|concat{_label}}|_T)]</span> <span class="champ-valeur">(#VALEUR)</span></li>]
+	})]
+</BOUCLE_affichage>
+</ul>
+</B_affichage>
