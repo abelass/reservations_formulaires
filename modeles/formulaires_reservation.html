@@ -1,10 +1,5 @@
-
-
 <BOUCLE_formulaires(RESERVATION_FORMULAIRES) {objet} {id_objet}>
-#SET{id_evenement, #ARRAY}
-#SET{id_article, #ARRAY}
-#SET{retour, #ARRAY}
-#SET{configurations, #ARRAY}
+	#SET{id_evenement,#ARRAY} #SET{id_article,#ARRAY} #SET{retour,#ARRAY} #SET{configurations,#ARRAY}
 	<BOUCLE_configurations(RESERVATION_FORMULAIRE_CONFIGURATIONS) {id_reservation_formulaire}>
 	#SET{configuration,#CONFIGURATION|json_decode{1}}
 	[(#GET{configuration}|table_valeur{traitement}|=={options}|oui)
@@ -15,6 +10,22 @@
 			}
 		}
 	]
+	[(#TYPE|=={rf_limiter}|oui)
+		#SET{id_evenement,#ENV{id_evenement}}
+		#SET{id_article,#ENV{id_article}}
+		#SET{objet,#GET{configuration}|table_valeur{choix_objet}}
+		#SET{limite,#GET{configuration}|table_valeur{limiter_#GET{objet}}}
+		[(#GET{objet}|=={rubrique}|oui)
+			#SET{rubriques,#GET{limite}|picker_selected{#GET{objet}}}
+			#SET{id_article,#INCLURE{fond=inclure/id_article_rubriques,rubriques=#GET{rubriques}}}
+		]
+		[(#GET{objet}|=={article}|oui)
+			#SET{id_article,#GET{limite}|picker_selected{#GET{objet}}}
+		]
+		[(#GET{objet}|=={evenement}|oui)
+			#SET{id_evenement,#GET{limite}}
+		]
+	]
 	</BOUCLE_configurations>
 	#SET{options, #ENV{option,#ARRAY{}}|array_merge{
 			#ARRAY{
@@ -24,7 +35,9 @@
 		}
 	}
 
-	<INCLURE{fond=modeles/reservation,env, options=#GET{options}} />
+	<INCLURE{fond=modeles/reservation,
+		env,
+		id_evenement=#GET{id_evenement},
+		id_article=#GET{id_article},
+		options=#GET{options}} />
 </BOUCLE_formulaires>
-
-

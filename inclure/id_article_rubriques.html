@@ -1,0 +1,5 @@
+#SET{articles,#ARRAY}
+<BOUCLE_article(ARTICLES){id_rubrique IN #RUBRIQUES}>
+	#SET{articles,#GET{articles}|push{#ID_ARTICLE}}
+</BOUCLE_article>
+[(#GET{articles}|implode{','})]
