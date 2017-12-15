@@ -204,7 +204,7 @@ function reservations_formulaires_reservation_evenement_objets_navigation($flux)
 
 	$flux['data']['reservation_formulaire'] = array(
 		'label' => _T('reservations_formulaires:reservations_formulaires_titre'),
-		'objets' => array('reservation_formulaires', 'reservation_formulaire')
+		'objets' => array('reservation_formulaires')
 	);
 
 	return $flux;
