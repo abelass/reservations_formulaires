@@ -127,7 +127,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 			$configurations = $contexte['configurations'];
 			$type = $configurations['type'];
 		}
-		elseif(isset($contexte['id_reservation_formulaire'])) {
+		elseif(!empty($contexte['id_reservation_formulaire'])) {
 			$sql = sql_select('type,configuration,titre',
 					'spip_reservation_formulaire_configurations_liens AS liens, spip_reservation_formulaire_configurations AS confs',
 					'liens.id_reservation_formulaire_configuration = confs.id_reservation_formulaire_configuration AND objet=' . sql_quote('reservation_formulaire') . ' AND id_objet=' . $contexte['id_reservation_formulaire']);
