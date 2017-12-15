@@ -202,9 +202,9 @@ function reservations_formulaires_formulaire_verifier($flux) {
  */
 function reservations_formulaires_reservation_evenement_objets_navigation($flux) {
 
-	$flux['data']['reservation_formulaire'] = array(
+	$flux['data']['reservation_formulaires'] = array(
 		'label' => _T('reservations_formulaires:reservations_formulaires_titre'),
-		'objets' => array('reservation_formulaires')
+		'objets' => array('reservation_formulaires', 'reservation_formulaire')
 	);
 
 	return $flux;
