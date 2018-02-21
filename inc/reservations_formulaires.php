@@ -19,35 +19,9 @@
  *
  * @return array défintion en format du plugin saisies.
  */
-function reservations_formulaires_definition_saisies($type, $valeurs = array()) {
+function reservations_formulaires_saisies_principales($type = '', $definitions = array()) {
 
-	$configurations = reservations_formulaires_charger_definitions($type, $valeurs) ;
-	if (count($configurations) > 0) {
-		if (isset($configurations['saisies'])) {
-			$configurations_saisies = $configurations['saisies'];
-		}
-		else {
-			$configurations_saisies = array (
-				'saisie' => 'hidden',
-				'options' => array(
-					'nom' => 'configurations_choix',
-					'texte' => _T('reservation_formulaire_configuration:champ_configurations_manquantes'),
-					'defaut' => 'non',
-				)
-			);
-		}
-	}
-	else {
-		$configurations_saisies = array (
-			'saisie' => 'explication',
-			'options' => array(
-				'nom' => 'configurations_manquantes',
-				'texte' => _T('reservation_formulaire_configuration:champ_configurations_manquantes')
-			)
-		);
-	}
-
-	$saisies = array(
+	return array(
 		array(
 			'saisie' => 'fieldset',
 			'options' => array(
@@ -60,20 +34,18 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 					'options' => array(
 						'nom' => 'type',
 						'label' => _T('reservation_formulaire_configuration:champ_type_label'),
-						'datas' => $configurations['noms'],
+						'datas' => $definitions['noms'],
 						'valeur_forcee' => $type,
 						'obligatoire' => 'oui',
 					)
 				),
-				$saisies = $configurations_saisies,
 			),
 		)
 	);
 
-	return $saisies;
 }
 
-function reservations_formulaires_charger_definitions($type, $valeurs = array(), $filtrer = '') {
+function reservations_formulaires_saisies_specifiques($type = '', $valeurs = array(), $filtrer = '') {
 	// Chercher les fichiers des configurations.
 	$configurations_defs = find_all_in_path("formulaire_configurations/", '^');
 
@@ -86,8 +58,14 @@ function reservations_formulaires_charger_definitions($type, $valeurs = array(),
 			// Charger la définition des champs
 			if ($confs = charger_fonction($nom, "formulaire_configurations", true)) {
 				$configuration = $confs($valeurs);
-				if ($type == $nom and isset($configuration['saisies'])) {
-					$configurations['saisies'] = $configuration['saisies'];
+				if (isset($configuration['saisies']) AND $saisies = $configuration['saisies']) {
+					if ($type && $type == $nom) {
+						$configurations['saisies'] = $saisies;
+					}
+					else {
+						$configurations[$nom]['saisies'] = $saisies;
+					}
+
 				}
 				// Lister les configurations disponibles.
 				if (isset($configuration['nom']))

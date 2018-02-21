@@ -75,8 +75,23 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
 	$type = _request('type') ? _request('type') :
 		(isset($valeurs['type']) ? $valeurs['type'] : '');
 
-	$valeurs['_saisies'] = reservations_formulaires_definition_saisies($type, $valeurs);
-	$saisies = saisies_lister_par_nom($valeurs['_saisies']);
+	$definitions = reservations_formulaires_saisies_specifiques('', $valeurs);
+	$valeurs['_saisies_principales'] = reservations_formulaires_saisies_principales($type , $definitions);
+
+	if (count($definitions) > 0) {
+		$valeurs['_saisies_specifiques'] = $definitions;
+	}
+	else {
+		$valeurs['_saisies_specifiques'] = array (
+			'saisie' => 'explication',
+			'options' => array(
+				'nom' => 'configurations_manquantes',
+				'texte' => _T('reservation_formulaire_configuration:champ_configurations_manquantes')
+			)
+		);
+	}
+
+	$saisies = saisies_lister_par_nom(array_column($valeurs['_saisies_specifiques'], 'saisies'));
 
 	// initialiser les donnees spécifiques de la configuration
 	foreach ($saisies as $saisie) {
@@ -116,11 +131,15 @@ function formulaires_editer_reservation_formulaire_configuration_charger_dist($i
  */
 function formulaires_editer_reservation_formulaire_configuration_verifier_dist($id_reservation_formulaire_configuration = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
 	include_spip('inc/saisies');
-	$definitions_saisies = reservations_formulaires_definition_saisies(_request('type'), $valeurs);
 
-	$saisies_verifier= saisies_verifier($definitions_saisies);
+	$type = _request('type');
 
-	$saisies = saisies_lister_par_nom($definitions_saisies[0]['saisies']);
+	$saisies_specifiques = reservations_formulaires_saisies_specifiques($type);
+	$saisies_principales = reservations_formulaires_saisies_principales();
+
+	$saisies_verifier= saisies_verifier(array_merge($saisies_specifiques, $saisies_principales));
+
+	$saisies = saisies_lister_par_nom($saisies_specifiques);
 
 	unset($saisies['type']);
 

@@ -1,0 +1,18 @@
+[(#ENV{type}|oui)
+	#GENERER_SAISIES{#ENV{_saisies_specifiques}|table_valeur{#ENV{type}}}
+]
+
+<script type="text/javascript">
+	$(function() {
+		$("#champ_type").change(function(event) {
+			$("option:selected", $(this)).each(function() {
+				var type = $(this).attr('value');
+				ajaxReload('saisies_specifiques', {
+					args : {
+						type : type,
+					}
+				});
+			});
+		});
+	});
+</script>

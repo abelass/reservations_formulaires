@@ -13,8 +13,9 @@
 
 			[(#SAISIE{textarea, descriptif,
 				label=<:reservation_formulaire_configuration:champ_descriptif_label:>})]
+			#GENERER_SAISIES{#ENV{_saisies_principales}}
 
-			#GENERER_SAISIES{#ENV{_saisies}}
+			<INCLURE{fond=formulaires/inc-editer_reservation_formulaire_configuration,env,ajax=saisies_specifiques} />
 
 		</div>
 		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
