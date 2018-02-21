@@ -61,7 +61,8 @@ function reservations_formulaires_definition_saisies($type, $valeurs = array()) 
 						'nom' => 'type',
 						'label' => _T('reservation_formulaire_configuration:champ_type_label'),
 						'datas' => $configurations['noms'],
-						'valeur_forcee' => $type
+						'valeur_forcee' => $type,
+						'obligatoire' => 'oui',
 					)
 				),
 				$saisies = $configurations_saisies,

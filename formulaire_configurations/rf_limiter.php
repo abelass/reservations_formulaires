@@ -55,6 +55,7 @@ function formulaire_configurations_rf_limiter_dist($valeurs) {
 						'nom' => 'choix_objet',
 						'label' => _T('reservation_formulaire:champ_choix_objet_label'),
 						'datas' => $choix_objets,
+						'obligatoire' => 'oui',
 					),
 				),
 			),
