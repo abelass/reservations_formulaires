@@ -1,7 +1,7 @@
 <paquet
 	prefix="reservations_formulaires"
 	categorie="maintenance"
-	version="1.1.0"
+	version="1.1.1"
 	etat="test"
 	compatibilite="[3.1.6;3.2.*]"
 	logo="prive/themes/spip/images/reservations_formulaires-64.png"
