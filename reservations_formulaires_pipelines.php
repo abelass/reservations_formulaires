@@ -154,7 +154,7 @@ function reservations_formulaires_formulaire_charger($flux) {
 }
 
 /**
- * Intervient lors du chargement d'un objet.
+ * Intervient lors de la vérification d'un objet.
  *
  * @pipeline formulaire_verifier
  * @param  array $flux Données du pipeline
