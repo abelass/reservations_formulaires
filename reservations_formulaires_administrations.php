@@ -3,7 +3,7 @@
  * Fichier gérant l'installation et désinstallation du plugin Réservations formulaires
  *
  * @plugin     Réservations formulaires
- * @copyright  2017
+ * @copyright  2017 - 2020
  * @author     Rainer Müller
  * @licence    GNU/GPL
  * @package    SPIP\Reservations_formulaires\Installation
