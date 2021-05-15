@@ -3,7 +3,7 @@
  * Utilisations de pipelines par Réservations formulaires
  *
  * @plugin     Réservations formulaires
- * @copyright  2017 - 2020
+ * @copyright  2017 - 2021
  * @author     Rainer Müller
  * @licence    GNU/GPL
  * @package    SPIP\Reservations_formulaires\Pipelines

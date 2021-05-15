@@ -3,7 +3,7 @@
  * Utilisation de l'action supprimer pour l'objet reservation_formulaire_configuration
  *
  * @plugin     Réservations formulaires
- * @copyright  2017 - 2020
+ * @copyright  2017 - 2021
  * @author     Rainer Müller
  * @licence    GNU/GPL
  * @package    SPIP\Reservations_formulaires\Action

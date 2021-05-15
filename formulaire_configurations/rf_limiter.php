@@ -3,7 +3,7 @@
  * Définition d'une configuration pour Réservation Formulaires
  *
  * @plugin     Réservations formulaires
- * @copyright  2017 - 2020
+ * @copyright  2017 - 2021
  * @author     Rainer
  * @licence    GNU/GPL
  * @package    SPIP\Reservations_formulaires\Formulaire_configuration

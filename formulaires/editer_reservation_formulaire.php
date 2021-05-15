@@ -3,7 +3,7 @@
  * Gestion du formulaire de d'édition de reservation_formulaire
  *
  * @plugin     Réservations formulaires
- * @copyright  2017 - 2020
+ * @copyright  2017 - 2021
  * @author     Rainer Müller
  * @licence    GNU/GPL
  * @package    SPIP\Reservations_formulaires\Formulaires
